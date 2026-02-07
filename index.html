@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For My Queen</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
+
+<style>
+body {
+  margin: 0;
+  padding: 0;
+  background: #f6efe9;
+  font-family: 'Dancing Script', cursive;
+  overflow-x: hidden;
+  color: #3a2a2a;
+}
+
+/* Center wrapper */
+.wrapper {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ===== VINTAGE ENVELOPE ===== */
+.envelope {
+  width: 340px;
+  height: 220px;
+  background: linear-gradient(145deg, #f2e3d3, #e6d2be);
+  position: relative;
+  cursor: pointer;
+  border-radius: 12px;
+  box-shadow:
+    inset 0 0 30px rgba(255,255,255,0.4),
+    0 25px 55px rgba(0,0,0,0.25);
+  transition: transform 0.4s ease;
+}
+
+.envelope:hover {
+  transform: translateY(-6px);
+}
+
+/* Flap */
+.envelope::before {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(145deg, #e8d4bf, #dcc3aa);
+  clip-path: polygon(0 0, 100% 0, 50% 55%);
+  border-radius: 12px 12px 0 0;
+}
+
+/* Paper texture illusion */
+.envelope::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(
+      45deg,
+      rgba(255,255,255,0.03),
+      rgba(255,255,255,0.03) 2px,
+      transparent 2px,
+      transparent 6px
+    );
+  border-radius: 12px;
+  pointer-events: none;
+}
+
+/* Wax seal */
+.wax {
+  position: absolute;
+  top: 88px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 48px;
+  height: 48px;
+  background: radial-gradient(circle at 30% 30%, #d46a6a, #9c2f2f);
+  border-radius: 50%;
+  box-shadow: inset 0 0 10px rgba(255,255,255,0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  color: #fff;
+}
+
+/* Envelope text */
+.envelope-text {
+  position: absolute;
+  bottom: 22px;
+  width: 100%;
+  text-align: center;
+  font-size: 1.5rem;
+  opacity: 0.85;
+}
+
+/* Letter */
+.letter-container {
+  display: none;
+  padding: 80px 25px;
+}
+
+.letter {
+  max-width: 820px;
+  margin: auto;
+  background: #fffaf5;
+  padding: 70px 60px;
+  border-radius: 14px;
+  box-shadow: 0 25px 60px rgba(0,0,0,0.12);
+}
+
+h1 {
+  text-align: center;
+  font-size: 3rem;
+  margin-bottom: 60px;
+}
+
+p {
+  font-size: 1.5rem;
+  line-height: 2;
+  margin-bottom: 55px;
+  opacity: 0;
+  transform: translateY(25px);
+  transition: all 1.6s ease;
+}
+
+p.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.closing {
+  text-align: center;
+  font-size: 1.6rem;
+}
+
+/* Floating hearts */
+.heart {
+  position: fixed;
+  top: -10%;
+  font-size: 18px;
+  opacity: 0.35;
+  animation: fall linear infinite;
+}
+
+@keyframes fall {
+  to {
+    transform: translateY(120vh);
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- Envelope view -->
+<div class="wrapper" id="envelopeView">
+  <div class="envelope" onclick="openLetter()">
+    <div class="wax">❤️</div>
+    <div class="envelope-text">For my queen</div>
+  </div>
+</div>
+
+<!-- Letter view -->
+<div class="letter-container" id="letterView">
+  <div class="letter">
+
+    <h1>My Queen,</h1>
+
+    <p class="reveal">
+      I don’t come to you today with a question, because my heart has never doubted its answer.
+      I come to you with gratitude — the kind that lives quietly inside me and feels heavier than words.
+      Loving you has been the most natural thing my soul has ever done.
+    </p>
+
+    <p class="reveal">
+      You are not just the woman I love.
+      You are the calm in my chaos, the warmth in my ordinary days,
+      and the strength I lean on without even realizing it.
+      Life feels softer simply because you are in it.
+    </p>
+
+    <p class="reveal">
+      I admire you more than I ever say.
+      Your heart, your patience, your grace —
+      the way you carry yourself like a queen without ever needing a crown.
+      Being loved by you is a privilege I will never take lightly.
+    </p>
+
+    <p class="reveal">
+      On this Propose Day, I don’t ask you to be mine —
+      because you already are, and I am already yours.
+      Instead, I promise to keep choosing you,
+      protecting us, and growing with you through every season.
+    </p>
+
+    <p class="reveal closing">
+      “I propose my forever to you — again and always.”<br>
+      Happy Propose Day, my wife.
+    </p>
+
+  </div>
+</div>
+
+<script>
+function openLetter() {
+  document.getElementById("envelopeView").style.display = "none";
+  document.getElementById("letterView").style.display = "block";
+  revealOnScroll();
+}
+
+/* Reveal paragraphs */
+const reveals = document.querySelectorAll(".reveal");
+function revealOnScroll() {
+  reveals.forEach(el => {
+    const windowHeight = window.innerHeight;
+    const elementTop = el.getBoundingClientRect().top;
+    if (elementTop < windowHeight - 120) {
+      el.classList.add("show");
+    }
+  });
+}
+window.addEventListener("scroll", revealOnScroll);
+
+/* Slow floating hearts */
+function createHeart() {
+  const heart = document.createElement("div");
+  heart.classList.add("heart");
+  heart.innerText = "❤️";
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.animationDuration = (10 + Math.random() * 10) + "s";
+  document.body.appendChild(heart);
+  setTimeout(() => heart.remove(), 20000);
+}
+setInterval(createHeart, 1500);
+</script>
+
+</body>
+</html>
